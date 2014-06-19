@@ -1,0 +1,5 @@
+[devbox]
+devbox		ansible_connection=local
+
+[vbox]
+vbox		ansible_connection=ssh	ansible_ssh_port=2222

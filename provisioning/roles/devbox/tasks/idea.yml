@@ -1,0 +1,21 @@
+---
+- name: Download Intellij Idea
+  command: curl -L http://download.jetbrains.com/idea/ideaIU-{{ idea_version }}.tar.gz -o /opt/ideaIU-{{ idea_version }}.tar.gz
+           creates=/opt/ideaIU-{{ idea_version }}.tar.gz
+
+- name: Extract Intellij Idea
+  shell: tar -xzf /opt/ideaIU-{{ idea_version }}.tar.gz -C /opt/ && ln -s /opt/idea-IU-135.909 /opt/idea
+         creates=/opt/idea
+
+- name: Copy Intellij Idea User Defaults
+  copy: src=files/idea-defaults.tar.gz
+        dest=/opt
+
+- name: Install Intellij Idea User Defaults
+  shell: tar -xzf /opt/idea-defaults.tar.gz -C ~/
+         creates=~/.IntelliJIdea13/
+
+- name: Create Intellij Desktop Entry
+  copy: src=desktop-entry/intellij-idea.desktop
+        dest=/usr/share/applications
+        mode=0644

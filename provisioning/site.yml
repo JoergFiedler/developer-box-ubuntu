@@ -1,0 +1,14 @@
+---
+- hosts: all
+  roles:
+    - role: common
+
+- hosts: vbox
+  roles:
+    - role: vbox
+    - role: devbox
+
+- hosts: devbox
+  roles:
+    - role: devbox
+

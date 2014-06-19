@@ -1,0 +1,28 @@
+- name: Find Virtualbox Version
+  sudo: no
+  script: vboxversion.sh
+  register: hostV
+
+- name: Install needed shell scripts
+  copy: src=guestversion.sh
+        dest=/usr/local/bin/guestversion.sh
+        mode=0755
+
+- name: Find Guest Additions Version
+  shell: guestversion.sh
+  register: guestV
+
+- name: Download Guest Additions Installer (when required)
+  get_url: url=http://download.virtualbox.org/virtualbox/{{hostV.stdout}}/VBoxGuestAdditions_{{hostV.stdout}}.iso
+           dest=/opt
+  when: hostV.stdout != guestV.stdout
+
+- name: Mount Guest Additions .iso (when required)
+  shell: mount /opt/VBoxGuestAdditions_{{hostV.stdout}}.iso -o loop /mnt creates=/mnt/VBoxLinuxAdditions.run
+  when: hostV.stdout != guestV.stdout
+
+- name: Install Guest Additions (when required)
+  shell: /mnt/VBoxLinuxAdditions.run --nox11 -- --force
+  when: hostV.stdout != guestV.stdout
+  ignore_errors: yes
+

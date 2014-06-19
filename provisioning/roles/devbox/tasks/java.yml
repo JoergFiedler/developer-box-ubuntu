@@ -1,0 +1,18 @@
+---
+- name: Install Java PPA Repository
+  apt_repository: repo='ppa:webupd8team/java' state=present
+
+- name: Prepare JDK7 Installation (Step 1)
+  shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+
+- name: Prepare JDK7 Installation (Step 2)
+  shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections
+
+- name: Install Java7 Installer
+  apt: name=oracle-java7-installer
+       state=present
+
+- name: Install Java7 JDK as default
+  apt: name=oracle-java7-set-default
+       state=present
+

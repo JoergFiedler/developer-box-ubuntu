@@ -1,0 +1,11 @@
+---
+- name: Install MongoDb
+  apt: name=mongodb state=present
+
+- name: Download Robomongo
+  command: curl -L http://robomongo.org/files/linux/robomongo-0.8.3-x86_64.deb -o /opt/robomongo-0.8.3-x86_64.deb
+           creates=/opt/robomongo-0.8.3-x86_64.deb
+
+- name: Install Robomongo
+  apt: deb=/opt/robomongo-0.8.3-x86_64.deb
+       state=installed

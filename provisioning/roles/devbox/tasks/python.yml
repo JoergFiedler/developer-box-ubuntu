@@ -1,0 +1,12 @@
+---
+- name: Install Python virtualenv
+  apt: name=python-virtualenv state=present
+
+- name: Create Python virtualenv
+  command: virtualenv .venv
+
+- name: Aktivate virtualenv in User Shell
+  sudo_user: "{{ user }}"
+  lineinfile: dest=~/.profile
+              line='. ~/.venv/bin/activate'
+              state=present
