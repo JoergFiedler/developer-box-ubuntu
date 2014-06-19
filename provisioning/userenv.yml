@@ -2,18 +2,12 @@
 - hosts: all
   sudo: yes
   vars:
-    user: sweet_agony
-    password: $6$4PV6KHKFAq$6LEzXeEEYjCHhMFRv5/NKrvMY4AVXWs42rbNQAfB6rF2LtrVeWn91o7z.LRQmkzqMaJYgIqNHFbhAN33IR2BF/
+    user: vagrant
     node_version: 0.10.29
     idea_version: 13.1.3
   tasks:
     - name: Install Git
       apt: name=git state=present
-
-    - name: Create user
-      user: name={{ user }}
-            group=admin
-            password={{ password }}
 
     - name: Download nvm
       sudo_user: "{{ user }}"
