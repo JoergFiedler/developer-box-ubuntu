@@ -28,3 +28,5 @@
 
 - name: Install Mate Notification Daemon
   apt: name=mate-notification-daemon force=yes state=present
+
+- include: vboxadditions.yml
