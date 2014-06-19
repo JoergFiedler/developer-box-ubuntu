@@ -43,6 +43,10 @@
     - name: Install Atom Editor PPA Repository
       apt_repository: repo='ppa:webupd8team/atom' state=present
 
+    - name: Install Chrome Stable
+      apt: name=google-chrome-stable
+           state=present
+
     - name: Install Atom Editor
       apt: name=atom
 
