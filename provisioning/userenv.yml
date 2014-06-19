@@ -5,6 +5,7 @@
     user: sweet_agony
     password: $6$4PV6KHKFAq$6LEzXeEEYjCHhMFRv5/NKrvMY4AVXWs42rbNQAfB6rF2LtrVeWn91o7z.LRQmkzqMaJYgIqNHFbhAN33IR2BF/
     node_version: 0.10.29
+    idea_version: 13.1.3
   tasks:
     - name: Install Git
       apt: name=git state=present
@@ -39,6 +40,18 @@
                   line='nvm use {{ node_version }}'
                   state=present
 
+    - name: Add Chrome Repository
+      apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
+
+    - name: Add mate desktop repo key
+      apt_key: url='https://dl-ssl.google.com/linux/linux_signing_key.pub' state=present
+
+    - name: Install Atom Editor PPA Repository
+      apt_repository: repo='ppa:webupd8team/atom' state=present
+
+    - name: Install Atom Editor
+      apt: name=atom
+
     - name: Install Java PPA Repository
       apt_repository: repo='ppa:webupd8team/java' state=present
 
@@ -53,4 +66,48 @@
 
     - name: Install Java7 JDK as default
       apt: name=oracle-java7-set-default state=present
+
+    - name: Download Intellij Idea
+      command: curl -L http://download.jetbrains.com/idea/ideaIU-{{ idea_version }}.tar.gz -o /opt/ideaIU-{{ idea_version }}.tar.gz
+               creates=/opt/ideaIU-{{ idea_version }}.tar.gz
+
+    - name: Extract Intellij Idea
+      shell: tar -xzf /opt/ideaIU-{{ idea_version }}.tar.gz -C /opt/ && ln -s /opt/idea-IU-135.909 /opt/idea
+             creates=/opt/idea
+
+    - name: Copy Intellij Idea User Defaults
+      copy: src=files/idea-defaults.tar.gz
+            dest=/opt
+
+    - name: Install Intellij Idea User Defaults
+      shell: tar -xzf /opt/idea-defaults.tar.gz -C ~/
+             creates=~/.IntelliJIdea13/
+
+    - name: Create Intellij Desktop Entry
+      copy: src=desktop-entry/intellij-idea.desktop
+            dest=/usr/share/applications
+            mode=0644
+
+    - name: Install MongoDb
+      apt: name=mongodb state=present
+
+    - name: Download Robomongo
+      command: curl -L http://robomongo.org/files/linux/robomongo-0.8.3-x86_64.deb -o /opt/robomongo-0.8.3-x86_64.deb
+               creates=/opt/robomongo-0.8.3-x86_64.deb
+
+    - name: Install Robomongo
+      apt: deb=/opt/robomongo-0.8.3-x86_64.deb
+           state=installed
+
+    - name: Install Python virtualenv
+      apt: name=python-virtualenv state=present
+
+    - name: Create Python virtualenv
+      command: virtualenv .venv
+
+    - name: Aktivate virtualenv in User Shell
+      sudo_user: "{{ user }}"
+      lineinfile: dest=~/.profile
+                  line='. ~/.venv/bin/activate'
+                  state=present
 
