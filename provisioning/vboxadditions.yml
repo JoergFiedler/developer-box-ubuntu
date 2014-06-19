@@ -1,0 +1,38 @@
+---
+# This playbook detects a mismatch between the installed Virtualbox version on the host and the VBox Guest Additions installed
+# on the guest.  It will update the VBox Guest Additions to be the same as the installed Virtualbox version, then restart the
+# VM. 
+# **** IMPORTANT - 1.  There will be a known error when the guest additions are installed because the VM has no X window system
+# ****                 installed.  This is normal for a server image.  It will work as advertised despite this error.
+# ****             2.  This restarts the VM at the end and brings it up without provisioning, so you should include this after
+# ****                 your other playbooks, or remove the `--no-provision` flag in the last task.
+# ****             3.  This playbook is idempotent, it's ok to run every time.  It won't do anything if VBox Guest Additions
+# ****                 is the correct version.
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: Find Virtualbox Version
+      sudo: no
+      local_action: command scripts/vboxversion.sh
+      register: hostV
+
+    - name: Install needed shell scripts
+      copy: src=scripts/guestversion.sh dest=/usr/local/bin/guestversion.sh mode=0755
+
+    - name: Find Guest Additions Version
+      shell: guestversion.sh
+      register: guestV
+
+    - name: Download Guest Additions Installer (when required)
+      get_url: dest=/opt url=http://download.virtualbox.org/virtualbox/{{hostV.stdout}}/VBoxGuestAdditions_{{hostV.stdout}}.iso
+      when: hostV.stdout != guestV.stdout
+
+    - name: Mount Guest Additions .iso (when required)
+      shell: mount /opt/VBoxGuestAdditions_{{hostV.stdout}}.iso -o loop /mnt creates=/mnt/VBoxLinuxAdditions.run
+      when: hostV.stdout != guestV.stdout
+
+    - name: Install Guest Additions (when required)
+      shell: /mnt/VBoxLinuxAdditions.run --nox11 -- --force
+      when: hostV.stdout != guestV.stdout
+      ignore_errors: yes
+

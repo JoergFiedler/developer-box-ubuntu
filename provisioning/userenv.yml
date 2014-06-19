@@ -1,0 +1,56 @@
+---
+- hosts: all
+  sudo: yes
+  vars:
+    user: sweet_agony
+    password: $6$4PV6KHKFAq$6LEzXeEEYjCHhMFRv5/NKrvMY4AVXWs42rbNQAfB6rF2LtrVeWn91o7z.LRQmkzqMaJYgIqNHFbhAN33IR2BF/
+    node_version: 0.10.29
+  tasks:
+    - name: Install Git
+      apt: name=git state=present
+
+    - name: Create user
+      user: name={{ user }}
+            group=admin
+            password={{ password }}
+
+    - name: Download nvm
+      sudo_user: "{{ user }}"
+      git: repo=https://github.com/creationix/nvm.git
+           dest=~/.nvm
+           version=v0.7.0
+
+    - name: Activate NVM
+      sudo_user: "{{ user }}"
+      lineinfile: dest=~/.profile
+                  line=". ~/.nvm/nvm.sh"
+                  state=present
+
+    - name: Install NodeJS {{ node_version }}
+      sudo_user: "{{ user }}"
+      shell: . ~/.nvm/nvm.sh && nvm install {{ node_version }}
+             creates=~/.nvm/v{{ node_version }}
+             executable=/bin/bash
+
+    - name: Aktivate Node in User Shell
+      sudo_user: "{{ user }}"
+      lineinfile: dest=~/.profile
+                  insertafter='/\.nvm/nvm\.sh'
+                  line='nvm use {{ node_version }}'
+                  state=present
+
+    - name: Install Java PPA Repository
+      apt_repository: repo='ppa:webupd8team/java' state=present
+
+    - name: Prepare JDK8 Installation (Step 1)
+      shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+
+    - name: Prepare JDK8 Installation (Step 2)
+      shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections
+
+    - name: Install Java8 Installer
+      apt: name=oracle-java8-installer state=present
+
+    - name: Install Java8 JDK as default
+      apt: name=oracle-java8-set-default state=present
+

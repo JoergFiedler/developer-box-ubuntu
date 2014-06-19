@@ -1,0 +1,28 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: yes
+  tasks:
+    - name: Prepare system for external kernel modules
+      apt: name=dkms state=present
+    - name: Install xorg
+      apt: name=xorg state=present
+    - name: Install gnome-core
+      apt: name=gnome-core state=present
+    - name: Install gnome-system-tools
+      apt: name=gnome-system-tools state=present
+    - name: Install gnome-app-install
+      apt: name=gnome-app-install state=present
+    - name: Add mate desktop repository
+      apt_repository: repo='deb http://repo.mate-desktop.org/archive/1.8/ubuntu trusty main' state=present
+    - name: Add mate desktop repo key
+      apt_key: url='http://mirror1.mate-desktop.org/debian/mate-archive-keyring.gpg' state=present
+    - name: Install Mate Desktop
+      apt: name=mate-core force=yes state=present
+    - name: Install Mate Desktop Environment
+      apt: name=mate-desktop-environment force=yes state=present
+    - name: Install Mate Notification Daemon
+      apt: name=mate-notification-daemon force=yes state=present
+
+- include: vboxadditions.yml
+- include: userenv.yml
