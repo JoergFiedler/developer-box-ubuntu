@@ -1,6 +1,6 @@
 ---
 - name: Download Eclipse
-  command: curl -L http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz -o eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz
+  command: curl -L http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz -o /opt/eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz
            creates=/opt/eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz
 
 - name: Extract Eclipse
