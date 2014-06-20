@@ -1,23 +1,23 @@
 ---
 - name: Download nvm
-  sudo_user: "{{ user }}"
+  sudo: false
   git: repo=https://github.com/creationix/nvm.git
        dest=~/.nvm
        version=v0.7.0
 
 - name: Activate NVM
-  sudo_user: "{{ user }}"
+  sudo: false
   lineinfile: dest=~/.profile
               line=". ~/.nvm/nvm.sh"
               state=present
 
 - name: Install NodeJS {{ node_version }}
-  sudo_user: "{{ user }}"
+  sudo: false
   shell: . ~/.nvm/nvm.sh && nvm install {{ node_version }}
          creates=~/.nvm/v{{ node_version }}
 
 - name: Aktivate Node in User Shell
-  sudo_user: "{{ user }}"
+  sudo: false
   lineinfile: dest=~/.profile
               insertafter='/\.nvm/nvm\.sh'
               line='nvm use {{ node_version }}'
