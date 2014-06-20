@@ -7,6 +7,7 @@
     - role: devbox
 
 - hosts: devbox
+  sudo: True
   roles:
     - role: common
     - role: devbox
