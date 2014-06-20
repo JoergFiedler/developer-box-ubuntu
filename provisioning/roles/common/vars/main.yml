@@ -1,4 +1,9 @@
 ---
 node_version: 0.10.29
 idea_version: 13.1.3
+groovy_version: 2.3.3
+gradle_version: 1.12
+grails_version: 2.4.1
+maven_version: 3.2.1
+
 sudo: yes

@@ -1,24 +1,21 @@
 ---
+sudo: false
 - name: Download nvm
-  sudo: false
   git: repo=https://github.com/creationix/nvm.git
        dest=~/.nvm
        version=v0.7.0
 
 - name: Activate NVM
-  sudo: false
   lineinfile: dest=~/.bashrc
               line=". ~/.nvm/nvm.sh"
               state=present
 
 - name: Install NodeJS {{ node_version }}
-  sudo: false
   shell: . ~/.nvm/nvm.sh && nvm install {{ node_version }}
          creates=~/.nvm/v{{ node_version }}
          executable=/bin/bash
 
 - name: Aktivate Node in User Shell
-  sudo: false
   lineinfile: dest=~/.bashrc
               insertafter='/\.nvm/nvm\.sh'
               line='nvm use {{ node_version }}'

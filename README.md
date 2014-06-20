@@ -13,15 +13,19 @@ The project can be used in two ways:
 
 After a successful run the following software will be installed.
 
-- NodeJS/NPM: 0.10.29
-- Atom Editor
-- Java JDK7
 - Mate Desktop
+- NodeJS/NPM: 0.10.29 (via NVM)
+- Java JDK7
+- Groovy 2.3.3 (via GVM)
+- Grails 2.4.1  (via GVM)
+- Gradle 1.12 (via GVM)
+- Python 2.7.6 - virtualenv
+- Atom Editor
 - Intellij Idea 13
 - Eclipse
 - Robomongo 0.8.6
-- Python 2.7.6 - virtualenv
 - Google-Chrome
+- Firefox with Firebug 2.0
 
 ### Prerequisites
 
