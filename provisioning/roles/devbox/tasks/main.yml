@@ -10,4 +10,6 @@
 - include: mongo.yml
 - include: node.yml
 - include: python.yml
+- include: gvm.yml
+- include: eclipse.yml
 
