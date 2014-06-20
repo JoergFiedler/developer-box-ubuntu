@@ -8,6 +8,6 @@
 
 - name: Aktivate virtualenv in User Shell
   sudo: false
-  lineinfile: dest=~/.profile
+  lineinfile: dest=~/.bashrc
               line='. ~/.venv/bin/activate'
               state=present

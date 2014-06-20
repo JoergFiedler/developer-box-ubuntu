@@ -7,7 +7,7 @@
 
 - name: Activate NVM
   sudo: false
-  lineinfile: dest=~/.profile
+  lineinfile: dest=~/.bashrc
               line=". ~/.nvm/nvm.sh"
               state=present
 
@@ -19,7 +19,7 @@
 
 - name: Aktivate Node in User Shell
   sudo: false
-  lineinfile: dest=~/.profile
+  lineinfile: dest=~/.bashrc
               insertafter='/\.nvm/nvm\.sh'
               line='nvm use {{ node_version }}'
               state=present
