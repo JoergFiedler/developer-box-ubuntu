@@ -1,2 +1,2 @@
 #!/bin/bash
-virtualbox -h | head -n 1 | awk '{split($0,a," |_"); print a[5]}'
+virtualbox -h | head -n 1 | sed  's/^.*Manager.\(.*\)/\1/g'

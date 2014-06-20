@@ -1,6 +1,7 @@
 - name: Find Virtualbox Version
   sudo: no
-  local_action: command vboxversion.sh
+  connection: local
+  script: vboxversion.sh
   register: hostV
 
 - name: Install needed shell scripts
@@ -13,11 +14,12 @@
   register: guestV
 
 - name: Download Guest Additions Installer (when required)
-  get_url: dest=/opt url=http://download.virtualbox.org/virtualbox/{{hostV.stdout}}/VBoxGuestAdditions_{{hostV.stdout}}.iso
+  get_url: url=http://download.virtualbox.org/virtualbox/{{hostV.stdout|trim}}/VBoxGuestAdditions_{{hostV.stdout|trim}}.iso
+           dest=/opt
   when: hostV.stdout != guestV.stdout
 
 - name: Mount Guest Additions .iso (when required)
-  shell: mount /opt/VBoxGuestAdditions_{{hostV.stdout}}.iso -o loop /mnt creates=/mnt/VBoxLinuxAdditions.run
+  shell: mount /opt/VBoxGuestAdditions_{{hostV.stdout|trim}}.iso -o loop /mnt creates=/mnt/VBoxLinuxAdditions.run
   when: hostV.stdout != guestV.stdout
 
 - name: Install Guest Additions (when required)
