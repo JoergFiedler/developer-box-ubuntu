@@ -3,7 +3,8 @@
   apt: name=python-virtualenv state=present
 
 - name: Create Python virtualenv
-  command: virtualenv .venv
+  sudo_user: "{{ user  }}"
+  command: virtualenv ~/.venv
 
 - name: Aktivate virtualenv in User Shell
   sudo_user: "{{ user }}"
