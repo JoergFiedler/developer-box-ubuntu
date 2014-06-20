@@ -14,11 +14,13 @@ The project can be used in two ways:
 After a successful run the following software will be installed.
 
 - NodeJS/NPM: 0.10.29
+- Atom Editor
 - Java JDK7
 - Mate Desktop
 - Intellij Idea 13
+- Eclipse
 - Robomongo 0.8.6
-- Python virtualenv
+- Python 2.7.6 - virtualenv
 - Google-Chrome
 
 ### Prerequisites
@@ -34,7 +36,7 @@ machine.
 
 Make sure the current user is allowed to execute commands with sudo.
 
-Execute the folowing commands.
+Execute the following commands.
 
     cd provisioning
     ansible-playbook site.yml -K
