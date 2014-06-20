@@ -15,6 +15,7 @@
   sudo: false
   shell: . ~/.nvm/nvm.sh && nvm install {{ node_version }}
          creates=~/.nvm/v{{ node_version }}
+         executable=/bin/bash
 
 - name: Aktivate Node in User Shell
   sudo: false
