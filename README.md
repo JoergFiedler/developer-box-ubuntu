@@ -22,7 +22,7 @@ After a successful run the following software will be installed.
 - Python 2.7.6 - virtualenv
 - Atom Editor
 - Intellij Idea 13
-- Eclipse
+- Eclipse JEE Kepler
 - Robomongo 0.8.6
 - Google-Chrome
 - Firefox with Firebug 2.0
