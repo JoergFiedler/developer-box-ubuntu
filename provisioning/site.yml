@@ -1,14 +1,13 @@
 ---
-- hosts: all
+- hosts: default
+  sudo: True
   roles:
     - role: common
-
-- hosts: vbox
-  roles:
     - role: vbox
     - role: devbox
 
 - hosts: devbox
   roles:
+    - role: common
     - role: devbox
 
