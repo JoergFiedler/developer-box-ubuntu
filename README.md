@@ -1,7 +1,7 @@
 Developer Box Ubuntu
 ====================
 
-Thanks to [@BTBurke (VBox Client integration)](https://github.com/BTBurke/skeleton-vagrant-ansible).
+Thanks to [BTBurke (VBox Client integration)](https://github.com/BTBurke/skeleton-vagrant-ansible).
 
 ### Goal
 
@@ -13,21 +13,22 @@ The project can be used in two ways:
 - set up local machine
 - create and setup VirtualBox machine
 
-After a successful run the following software will be installed.
+After a successful run the following software is installed.
 
-- Mate Desktop
-- NodeJS/NPM: 0.10.29 (via NVM)
-- Java JDK7
-- Groovy 2.3.3 (via GVM)
-- Grails 2.4.1  (via GVM)
-- Gradle 1.12 (via GVM)
-- Python 2.7.6 - virtualenv
-- Atom Editor
-- Intellij Idea 13
-- Eclipse JEE Kepler
-- Robomongo 0.8.6
-- Google-Chrome
-- Firefox with Firebug 2.0
+- NodeJS/NPM: 0.10.29 (via NVM, $HOME/.nvm)
+- Apache Maven 3.2.1 ($HOME/opt/apache-maven)
+- Groovy 2.3.3 (via GVM, $HOME/.gvm)
+- Grails 2.4.1  (via GVM, $HOME/.gvm)
+- Gradle 1.12 (via GVM, $HOME/.gvm)
+- Python 2.7.6 - virtualenv ($HOME/.venv)
+- Intellij Idea 13 (/opt/idea)
+- Eclipse JEE Kepler (/opt/eclipse)
+- Java JDK7 (apt-get)
+- Atom Editor (apt-get)
+- Robomongo 0.8.6 (apt-get)
+- Google-Chrome (apt-get)
+- Firefox with Firebug 2.0 (apt-get)
+- Mate Desktop (apt-get)
 
 ### Prerequisites
 
@@ -40,14 +41,14 @@ machine.
 
 ### Local machine setup
 
-Make sure the current user is allowed to execute commands with sudo.
+Make sure the current user is allowed to execute commands via sudo.
 
 Execute the following commands.
 
     ./update-local.sh
 
-You will be asked to provide your password. It will be used to sudo
-execute the administration commands.
+You will be asked to provide your password. It will be used to execute
+commands via sudo.
 
 ### Create a new VirtualBox machine
 
