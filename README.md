@@ -1,6 +1,8 @@
 Developer Box Ubuntu
 ====================
 
+Thanks to [@BTBurke (VBox Client integration)](https://github.com/BTBurke/skeleton-vagrant-ansible).
+
 ### Goal
 
 Provide a set of ansible scripts that can be used to set up a Ubuntu
