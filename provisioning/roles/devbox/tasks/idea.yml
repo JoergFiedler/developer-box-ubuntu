@@ -1,18 +1,34 @@
 ---
+- name: Create 'opt' Directory
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  file: path=~/opt
+        state=directory
+
 - name: Download Intellij Idea
-  command: curl -L http://download.jetbrains.com/idea/ideaIU-{{ idea_version }}.tar.gz -o /opt/ideaIU-{{ idea_version }}.tar.gz
-           creates=/opt/ideaIU-{{ idea_version }}.tar.gz
+  get_url: url=http://download.jetbrains.com/idea/ideaIU-{{idea_version}}.tar.gz
+           dest=/opt/ideaIU-{{idea_version}}.tar.gz
 
 - name: Extract Intellij Idea
-  shell: tar -xzf /opt/ideaIU-{{ idea_version }}.tar.gz -C /opt/ && ln -s /opt/idea-IU-135.909 /opt/idea
-         creates=/opt/idea
+  shell: tar -xzf /opt/ideaIU-{{idea_version}}.tar.gz -C /opt
+         creates=/opt/idea-IU-{{idea_build}}
+
+- name: Create Link to Intellij Idea
+  file: path=/opt/idea
+        force=yes
+        state=link
+        src=/opt/idea-IU-{{idea_build}}
 
 - name: Copy Intellij Idea User Defaults
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
   copy: src=idea-defaults.tar.gz
-        dest=/opt
+        dest=~/opt
 
 - name: Install Intellij Idea User Defaults
-  shell: tar -xzf /opt/idea-defaults.tar.gz -C ~/
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  shell: tar -xzf ~/opt/idea-defaults.tar.gz -C ~/
          creates=~/.IntelliJIdea13/
 
 - name: Create Intellij Desktop Entry
