@@ -1,30 +1,30 @@
 ---
 - name: Download nvm
-  sudo: "{{ vagrant_run  }}"
-  sudo_user: "{{ user  }}"
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
   git: repo=https://github.com/creationix/nvm.git
        dest=~/.nvm
-       version=v0.7.0
+       version={{nvm_version}}
 
 - name: Activate NVM
-  sudo: "{{ vagrant_run  }}"
-  sudo_user: "{{ user  }}"
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
   lineinfile: dest=~/.bashrc
               line=". ~/.nvm/nvm.sh"
               state=present
 
-- name: Install NodeJS {{ node_version }}
-  sudo: "{{ vagrant_run  }}"
-  sudo_user: "{{ user  }}"
-  shell: . ~/.nvm/nvm.sh && nvm install {{ node_version }}
-         creates=~/.nvm/v{{ node_version }}
+- name: Install NodeJS {{node_version}}
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  shell: . ~/.nvm/nvm.sh && nvm install {{node_version}}
+         creates=~/.nvm/v{{node_version}}
          executable=/bin/bash
 
 - name: Aktivate Node in User Shell
-  sudo: "{{ vagrant_run  }}"
-  sudo_user: "{{ user  }}"
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
   lineinfile: dest=~/.bashrc
               insertafter='/\.nvm/nvm\.sh'
-              line='nvm use {{ node_version }}'
+              line='nvm use {{node_version}}'
               state=present
 

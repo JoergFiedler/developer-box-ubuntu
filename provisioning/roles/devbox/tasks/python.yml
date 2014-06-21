@@ -3,14 +3,14 @@
   apt: name=python-virtualenv state=present
 
 - name: Create Python virtualenv
-  sudo: "{{ vagrant_run  }}"
-  sudo_user: "{{ user  }}"
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
   command: virtualenv ~/.venv
            creates=~/.venv
 
 - name: Aktivate virtualenv in User Shell
-  sudo: "{{ vagrant_run  }}"
-  sudo_user: "{{ user  }}"
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
   lineinfile: dest=~/.bashrc
               line='. ~/.venv/bin/activate'
               state=present
