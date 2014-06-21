@@ -13,17 +13,17 @@
   shell: guestversion.sh
   register: guestV
 
-- name: Download Guest Additions Installer (when required)
+- name: Download Guest Additions Installer
   get_url: url=http://download.virtualbox.org/virtualbox/{{hostV.stdout|trim}}/VBoxGuestAdditions_{{hostV.stdout|trim}}.iso
            dest=/opt
-  when: hostV.stdout != guestV.stdout
+  when: hostV.stdout|trim != guestV.stdout
 
-- name: Mount Guest Additions .iso (when required)
+- name: Mount Guest Additions .iso
   shell: mount /opt/VBoxGuestAdditions_{{hostV.stdout|trim}}.iso -o loop /mnt creates=/mnt/VBoxLinuxAdditions.run
-  when: hostV.stdout != guestV.stdout
+  when: hostV.stdout|trim != guestV.stdout
 
-- name: Install Guest Additions (when required)
+- name: Install Guest Additions
   shell: /mnt/VBoxLinuxAdditions.run --nox11 -- --force
-  when: hostV.stdout != guestV.stdout
+  when: hostV.stdout|trim != guestV.stdout
   ignore_errors: yes
 
