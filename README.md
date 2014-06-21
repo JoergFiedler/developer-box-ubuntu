@@ -44,8 +44,7 @@ Make sure the current user is allowed to execute commands with sudo.
 
 Execute the following commands.
 
-    cd provisioning
-    ansible-playbook site.yml -K
+    ./update-local.sh
 
 You will be asked to provide your password. It will be used to sudo
 execute the administration commands.
