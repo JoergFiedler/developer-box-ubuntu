@@ -1,0 +1,41 @@
+---
+- name: Create 'opt' Directory
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  file: path=~/opt
+        state=directory
+
+- name: Download Maven
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  get_url: url=ftp://ftp.fu-berlin.de/unix/www/apache/maven/maven-3/{{maven_version}}/binaries/apache-maven-{{maven_version}}-bin.tar.gz
+           dest=~/opt/apache-maven-{{maven_version}}-bin.tar.gz
+
+- name: Extract Maven
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  shell: tar -xzf ~/opt/apache-maven-{{maven_version}}-bin.tar.gz -C ~/opt/
+         creates=~/opt/apache-maven-{{maven_version}}
+
+- name: Create Link to Maven
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  file: path=~/opt/apache-maven
+        force=yes
+        state=link
+        src=~/opt/apache-maven-{{maven_version}}
+
+- name: Add Maven to Path (Step 1)
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  lineinfile: dest=~/.bashrc
+              line=MAVEN_HOME=$HOME/opt/apache-maven
+              state=present
+
+- name: Add Maven to Path (Step 2)
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  lineinfile: dest=~/.bashrc
+              line=PATH=$PATH:$MAVEN_HOME/bin
+              state=present
+
