@@ -5,6 +5,7 @@
 
 - include: atom.yml
 - include: chrome.yml
+- include: firefox.yml
 - include: java.yml
 - include: idea.yml
 - include: maven.yml

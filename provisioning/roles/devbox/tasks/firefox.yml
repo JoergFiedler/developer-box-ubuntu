@@ -1,0 +1,13 @@
+---
+- name: Install Latest Version of Firefox
+  apt: name=firefox
+       state=latest
+
+- name: Ensure that Extension Directory exists
+  file: path=/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+        state=directory
+
+- name: Install Latest Firebug Extension
+  get_url: url=https://addons.mozilla.org/firefox/downloads/latest/1843/addon-1843-latest.xpi
+           dest=/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/firebug@software.joehewitt.com.xpi
+
