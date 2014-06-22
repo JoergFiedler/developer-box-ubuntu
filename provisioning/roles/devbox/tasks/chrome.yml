@@ -10,4 +10,4 @@
 - name: Install Chrome Stable
   apt: name=google-chrome-stable
        force=yes
-       state=present
+       state=latest
