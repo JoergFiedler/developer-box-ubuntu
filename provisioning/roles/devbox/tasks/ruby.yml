@@ -1,0 +1,38 @@
+---
+- name: Download rbenv
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  git: repo=https://github.com/sstephenson/rbenv.git
+       dest=~/.rbenv
+       version={{rbenv_version}}
+
+- name: Download ruby-build
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  git: repo=https://github.com/sstephenson/ruby-build.git
+       dest=~/.rbenv/plugins/ruby-build
+
+- name: Add rbenv to PATH
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  lineinfile: dest=~/.bashrc
+              line='export PATH="$HOME/.rbenv/bin:$PATH"'
+              state=present
+
+- name: Initialize rbenv
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  lineinfile: dest=~/.bashrc
+              line='eval "$(rbenv init -)"'
+              state=present
+
+- name: Install Ruby {{ruby_version}}
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  shell: ~/.rbenv/bin/rbenv install {{ruby_version}}
+         creates=~/.rbenv/versions/{{ruby_version}}
+
+- name: Activate Ruby {{ruby_version}}
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  shell: ~/.rbenv/bin/rbenv global {{ruby_version}}

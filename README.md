@@ -18,6 +18,7 @@ After a successful run the following software is installed.
 - NodeJS/NPM: 0.10.29 (via NVM, $HOME/.nvm)
 - NPM Packages Karam-CLI/Grunt-CLI (npm -g)
 - Apache Maven 3.2.1 ($HOME/opt/apache-maven)
+- Ruby 2.1.2 (via rbenv, $HOME/.rbenv)
 - Groovy 2.3.3 (via GVM, $HOME/.gvm)
 - Grails 2.4.1  (via GVM, $HOME/.gvm)
 - Gradle 1.12 (via GVM, $HOME/.gvm)
