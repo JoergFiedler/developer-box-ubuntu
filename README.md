@@ -16,6 +16,7 @@ The project can be used in two ways:
 After a successful run the following software is installed.
 
 - NodeJS/NPM: 0.10.29 (via NVM, $HOME/.nvm)
+- NPM Packages Karam-CLI/Grunt-CLI (npm -g)
 - Apache Maven 3.2.1 ($HOME/opt/apache-maven)
 - Groovy 2.3.3 (via GVM, $HOME/.gvm)
 - Grails 2.4.1  (via GVM, $HOME/.gvm)
@@ -27,7 +28,7 @@ After a successful run the following software is installed.
 - Atom Editor (apt-get)
 - Robomongo 0.8.6 (apt-get)
 - Google-Chrome (apt-get)
-- Firefox with Firebug 2.0 (apt-get)
+- Firefox with latest version of Firebug (apt-get)
 - Mate Desktop (apt-get)
 
 ### Prerequisites

@@ -28,3 +28,18 @@
               line='nvm use {{node_version}}'
               state=present
 
+- name: Install Grunt-CLI globally
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  npm: name=grunt-cli
+       state=latest
+       global=yes
+       executable=~/.nvm/v{{node_version}}/bin/npm
+
+- name: Install Karma-CLI globally
+  sudo: "{{vagrant_run}}"
+  sudo_user: "{{user}}"
+  npm: name=karma-cli
+       state=latest
+       global=yes
+       executable=~/.nvm/v{{node_version}}/bin/npm
