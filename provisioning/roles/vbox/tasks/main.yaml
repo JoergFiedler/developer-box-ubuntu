@@ -1,17 +1,20 @@
 ---
 - name: Prepare system for external kernel modules
-  apt: name=dkms state=present
+  apt: name=dkms state=latest
 
 - name: Install xorg
-  apt: name=xorg state=present
+  apt: name=xorg state=latest
 
 - name: Install gnome-core
-  apt: name=gnome-core state=present
+  apt: name=gnome-core state=latest
 
 - name: Install gnome-system-tools
-  apt: name=gnome-system-tools state=present
+  apt: name=gnome-system-tools state=latest
 
 - name: Install gnome-app-install
-  apt: name=gnome-app-install state=present
+  apt: name=gnome-app-install state=latest
+
+- name: Install Ubuntu Fonts
+  apt: name=ttf-ubuntu-font-family state=latest
 
 - include: vboxadditions.yml
