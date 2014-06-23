@@ -1,4 +1,8 @@
 ---
+- name: Install OpenSSL Developement Headers
+  apt: name=libssl-dev
+       state=present
+
 - name: Download rbenv
   sudo: "{{vagrant_run}}"
   sudo_user: "{{user}}"
