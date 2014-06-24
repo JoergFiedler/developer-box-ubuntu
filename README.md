@@ -27,6 +27,7 @@ After a successful run the following software is installed.
 - Eclipse JEE Kepler (/opt/eclipse)
 - Java JDK7 (apt-get)
 - Atom Editor (apt-get)
+- MongoDB (apt-get)
 - Robomongo 0.8.6 (apt-get)
 - Google-Chrome (apt-get)
 - Firefox with latest version of Firebug (apt-get)
