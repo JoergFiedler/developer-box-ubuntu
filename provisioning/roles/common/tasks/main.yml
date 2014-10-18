@@ -1,23 +1,16 @@
 ---
-- name: Add mate desktop repository
-  apt_repository: repo='deb http://repo.mate-desktop.org/archive/1.8/ubuntu trusty main' 
+- name: Add mate desktop repositories
+  apt_repository: repo={{ item }}
                   state=present
-
-- name: Add mate desktop repo key
-  apt_key: url='http://mirror1.mate-desktop.org/debian/mate-archive-keyring.gpg'
-           state=present
+  with_items:
+    - 'ppa:ubuntu-mate-dev/ppa'
+    - 'ppa:ubuntu-mate-dev/trusty-mate'
 
 - name: Install Mate Desktop
-  apt: name=mate-core
+  apt: name={{ item }}
        force=yes
        state=present
+  with_items:
+    - ubuntu-mate-core
+    - ubuntu-mate-desktop
 
-- name: Install Mate Desktop Environment
-  apt: name=mate-desktop-environment
-       force=yes
-       state=present
-
-- name: Install Mate Notification Daemon
-  apt: name=mate-notification-daemon
-       force=yes
-       state=present
